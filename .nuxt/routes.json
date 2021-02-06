@@ -1,0 +1,9 @@
+[
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/var/www/html/pantrio/resources/nuxt/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_1f6e75f6"
+  }
+]

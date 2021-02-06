@@ -1,18 +1,15 @@
 {
     "private": true,
+    "name": "pantrio",
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "analyze": "nuxt build --analyze",
+        "generate": "nuxt generate",
+        "start": "nuxt start"
     },
-    "devDependencies": {
-        "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+    "devDependencies": {},
+    "dependencies": {
+        "nuxt": "^2.14.12"
     }
 }

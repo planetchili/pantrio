@@ -1,5 +1,19 @@
 [
   {
+    "name": "butts",
+    "path": "/butts",
+    "component": "/var/www/html/pantrio/resources/nuxt/pages/butts/index.vue",
+    "chunkName": "pages/butts/index",
+    "_name": "_bb833b32"
+  },
+  {
+    "name": "butts-varvar",
+    "path": "/butts/:varvar",
+    "component": "/var/www/html/pantrio/resources/nuxt/pages/butts/_varvar.vue",
+    "chunkName": "pages/butts/_varvar",
+    "_name": "_54104794"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/var/www/html/pantrio/resources/nuxt/pages/index.vue",

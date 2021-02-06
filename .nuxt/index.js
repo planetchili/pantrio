@@ -58,7 +58,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"pantr.io Comestibles Management Solution","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"For people with a lot of fridges and shit"}],"link":[],"style":[],"script":[]},
+    head: {"title":"pantr.io Comestibles Management Solution","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"For people with a lot of fridges and shit"}],"link":[{"rel":"stylesheet","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002Fbulma@0.9.1\u002Fcss\u002Fbulma.min.css"}],"style":[],"script":[]},
 
     router,
     nuxt: {

@@ -10,6 +10,11 @@
     },
     "devDependencies": {},
     "dependencies": {
-        "nuxt": "^2.14.12"
+        "@nuxt/types": "^2.14.12",
+        "@nuxt/typescript-build": "^2.0.4",
+        "@types/node": "^14.14.25",
+        "nuxt": "^2.14.12",
+        "vue-class-component": "^7.2.6",
+        "vue-property-decorator": "^9.1.2"
     }
 }

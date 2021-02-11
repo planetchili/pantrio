@@ -27,26 +27,11 @@ import {Vue, Component} from "vue-property-decorator";
 
 @Component
 export default class IndexClass extends Vue {
-    sections = [
-        {
-            name: 'Freezer',
-            items: [
-                {name: 'Pizza', qty: 69},
-                {name: 'Pasta', qty: 420},
-                {name: 'Human Head of Lettuce', qty: 1},
-                {name: 'Doritos', qty: 33},
-            ],
-        },
-        {
-            name: 'Pantry',
-            items: [
-                {name: 'Panties', qty: 3},
-            ],
-        },
-        {
-            name: 'Fridge',
-            items: [],
-        }
-    ];
+    sections = [];
+
+    async created()
+    {
+        this.sections = await this.$axios.$get("http://pantr.io/api/test");
+    }
 }
 </script>

@@ -22,7 +22,9 @@ export default {
         '@nuxtjs/vuetify',
     ],
 
-    modules: [],
+    modules: [
+        '@nuxtjs/axios',
+    ],
 
     build: {
         publicPath: process.env.NODE_ENV === 'production' ? 'assets/' : null,

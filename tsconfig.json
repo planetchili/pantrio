@@ -27,7 +27,8 @@
         "types": [
             "@types/node",
             "@nuxt/types",
-            "@nuxtjs/vuetify"
+            "@nuxtjs/vuetify",
+            "@nuxtjs/axios"
         ],
         // "typeRoots": ["./resources/nuxt/types"],
     },

@@ -19,19 +19,32 @@
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-card-text>
+        {{jank}}
     </v-card>
 </template>
 
 <script lang="ts">
 import {Vue, Component} from "vue-property-decorator";
+import {getModule} from 'vuex-module-decorators'
+import JankModule from "../store/jank";
 
 @Component
 export default class IndexClass extends Vue {
     sections = [];
+    jankModule: JankModule|null = null;
 
     async created()
     {
         this.sections = await this.$axios.$get("http://pantr.io/api/test");
+        this.jankModule = getModule(JankModule, this.$store);
+        await this.jankModule.goPeePee();
+    }
+
+    get jank() {
+        if (this.jankModule == null) {
+            return '';
+        }
+        return this.jankModule.variable;
     }
 }
 </script>

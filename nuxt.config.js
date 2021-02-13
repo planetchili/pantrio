@@ -13,7 +13,9 @@ export default {
 
     css: [],
 
-    plugins: [],
+    plugins: [
+        'plugins/nuxt-axios-exporter.ts',
+    ],
 
     components: true,
 

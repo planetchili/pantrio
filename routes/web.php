@@ -13,5 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('users', 'Controller@listUsers');
-Route::get('users/{user}', 'Controller@showUser');

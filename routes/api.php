@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', 'Controller@getTestData');
+Route::get('areas', 'StorageAreaController@retrieve');

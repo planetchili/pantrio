@@ -18,7 +18,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
-            <v-btn @click="foobar">FARKNARDS</v-btn>
+            <v-btn class="mt-4" @click="foobar">FARKNARDS</v-btn>
         </v-card-text>
     </v-card>
 </template>
@@ -38,7 +38,7 @@ export default class IndexClass extends Vue {
     }
 
     foobar() {
-        this.areaModule!.areas[0].items[0].quantity = 69;
+        this.areaModule!.areas[0].items.push({name: 'Butts', quantity: 420});
     }
 
     get areas() {

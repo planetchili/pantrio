@@ -18,6 +18,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
+            <v-btn @click="foobar">FARKNARDS</v-btn>
         </v-card-text>
     </v-card>
 </template>
@@ -34,6 +35,10 @@ export default class IndexClass extends Vue {
     async created() {
         this.areaModule = getModule(AreaModule, this.$store);
         await this.areaModule.initialize();
+    }
+
+    foobar() {
+        this.areaModule!.areas[0].items[0].quantity = 69;
     }
 
     get areas() {

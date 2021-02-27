@@ -38,7 +38,10 @@ export default class IndexClass extends Vue {
     }
 
     foobar() {
-        this.areaModule!.items[0].name = 'turdquoise';
+        if (this.areaModule!.areas[1].items.length > 3) {
+            this.areaModule!.items[0].name = 'turdquoise';
+            return;
+        }
         // this.areaModule!.areas[0].items.splice(0, 1, {});
         this.areaModule!.areas[1].items.push({quantity: 420, item: this.areaModule!.items[0]});
     }

@@ -38,7 +38,7 @@ export default class IndexClass extends Vue {
     }
 
     foobar() {
-        this.areaModule!.areas[0].items.splice(1, 1);
+        this.areaModule!.areas[0].items[0] = {name: 'donk', quantity: 45};
     }
 
     get areas() {

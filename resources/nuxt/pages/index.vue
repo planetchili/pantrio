@@ -10,7 +10,7 @@
                         <v-card v-for="(item,j) in area.items" :key="j">
                             <v-card-text>
                                 <v-row no-gutters align="center">
-                                    <v-col :cols="9"><h3>{{item.name}}</h3></v-col>
+                                    <v-col :cols="9"><h3>{{item.item.name}}</h3></v-col>
                                     <v-col :cols="3"><v-text-field label="QTY" :value="item.quantity" dense hide-details outlined></v-text-field></v-col>
                                 </v-row>
                             </v-card-text>
@@ -38,7 +38,8 @@ export default class IndexClass extends Vue {
     }
 
     foobar() {
-        this.areaModule!.areas[0].items.splice(0, 1,{name: 'donk', quantity: 45});
+        this.areaModule!.items[0].name = 'turdquoise';
+        // this.areaModule!.areas[0].items.splice(0, 1, {});
     }
 
     get areas() {

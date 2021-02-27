@@ -3,25 +3,42 @@ import {$axios} from "../plugins/nuxt-axios-exporter";
 
 interface Item {
     name: string;
+}
+
+interface ItemInstance {
+    item: Item;
     quantity: number;
 }
 
 interface Area {
     name: string;
-    items: Item[];
+    items: ItemInstance[];
 }
 
 @Module({namespaced: true, name: 'area'})
 export default class AreaModule extends VuexModule {
     areas: Area[] = [];
+    items: Item[] = [];
 
     @Mutation
-    replace(areas:Area[]) {
+    replaceAreas(areas:Area[]) {
         this.areas = areas;
     }
 
-    @Action({rawError: true})
+    @Mutation
+    replaceItems(items:Item[]) {
+        this.items = items;
+    }
+
+    @Action
     async initialize() {
-        this.replace(await $axios.$get("http://pantr.io/vue/areas"));
+        this.replaceItems([
+            {name: 'Buttsoap'},
+            {name: 'Shartorade'},
+        ]);
+        this.replaceAreas([
+            {name: 'doomchest', items: [{quantity: 4, item: this.items[0]}, {quantity: 9, item: this.items[1]}]},
+            {name: 'buttdock', items: [{quantity: 69, item: this.items[0]}]},
+        ]);
     }
 }

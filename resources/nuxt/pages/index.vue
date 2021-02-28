@@ -30,7 +30,7 @@ import AreaModule from "../store/area";
 
 @Component
 export default class IndexClass extends Vue {
-    areaModule: AreaModule|null = null;
+    areaModule: AreaModule = null!;
 
     async created() {
         this.areaModule = getModule(AreaModule, this.$store);
@@ -38,18 +38,15 @@ export default class IndexClass extends Vue {
     }
 
     foobar() {
-        if (this.areaModule!.areas[1].items.length > 3) {
-            this.areaModule!.items[0].name = 'turdquoise';
+        if (this.areaModule.areas[1].items.length > 3) {
+            this.areaModule.items[0].name = 'turdquoise';
             return;
         }
         // this.areaModule!.areas[0].items.splice(0, 1, {});
-        this.areaModule!.areas[1].items.push({quantity: 420, item: this.areaModule!.items[0]});
+        this.areaModule.areas[1].items.push({quantity: 420, item: this.areaModule!.items[0]});
     }
 
     get areas() {
-        if (this.areaModule === null) {
-            return [];
-        }
         return this.areaModule.areas;
     }
 }

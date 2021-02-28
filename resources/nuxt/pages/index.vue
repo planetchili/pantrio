@@ -18,7 +18,26 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
-            <v-btn class="mt-4" @click="foobar">FARKNARDS</v-btn>
+
+            <v-btn class="my-4" @click="foobar">FARKNARDS</v-btn>
+
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in items" :key="i">
+                    <v-expansion-panel-header>
+                        <h2>{{item.name}}</h2>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-card v-for="(area,j) in item.areas" :key="j">
+                            <v-card-text>
+                                <v-row no-gutters align="center">
+                                    <v-col :cols="9"><h3>{{area.area.name}}</h3></v-col>
+                                    <v-col :cols="3"><v-text-field label="QTY" :value="area.quantity" dense hide-details outlined></v-text-field></v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
         </v-card-text>
     </v-card>
 </template>
@@ -42,12 +61,18 @@ export default class IndexClass extends Vue {
             this.areaModule.items[0].name = 'turdquoise';
             return;
         }
-        // this.areaModule!.areas[0].items.splice(0, 1, {});
-        this.areaModule.areas[1].items.push({quantity: 420, item: this.areaModule!.items[0]});
+        // this.areaModule!.areas[0].items.splice(0, 1, {}); // replacing an item
+        const inst = {quantity: 420, item: this.areaModule.items[0], area: this.areaModule.areas[1]};
+        this.areaModule.areas[1].items.push(inst);
+        this.areaModule.items[0].areas.push(inst);
     }
 
     get areas() {
         return this.areaModule.areas;
+    }
+
+    get items() {
+        return this.areaModule.items;
     }
 }
 </script>

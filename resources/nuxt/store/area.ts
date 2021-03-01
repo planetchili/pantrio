@@ -1,20 +1,11 @@
 import {Module, Mutation, Action, VuexModule} from 'vuex-module-decorators'
 import {$axios} from "../plugins/nuxt-axios-exporter";
+import {Area, AreaTransfer, Item, ItemTransfer, ItemInstance, ItemInstanceTransfer} from "../../core/Entity";
 
-interface Item {
-    name: string;
-    areas: ItemInstance[];
-}
-
-interface ItemInstance {
-    item: Item;
-    area: Area;
-    quantity: number;
-}
-
-interface Area {
-    name: string;
-    items: ItemInstance[];
+interface Transfer {
+    areas: AreaTransfer[];
+    items: ItemTransfer[];
+    instances: ItemInstanceTransfer[];
 }
 
 @Module({namespaced: true, name: 'area'})
@@ -34,24 +25,24 @@ export default class AreaModule extends VuexModule {
 
     @Action
     async initialize() {
-        const items:Item[] = [
-            {name: 'Buttsoap', areas: []},
-            {name: 'Shartorade', areas: []},
-        ];
-        const areas:Area[] = [
-            {name: 'doomchest', items: []},
-            {name: 'buttdock', items: []},
-        ];
-        const instances:ItemInstance[] = [
-            {area: areas[0], item: items[0], quantity: 4},
-            {area: areas[0], item: items[1], quantity: 3},
-            {area: areas[1], item: items[0], quantity: 9},
-        ];
-        items[0].areas = [instances[0], instances[2]];
-        items[1].areas = [instances[1]];
-        areas[0].items = [instances[0], instances[1]];
-        areas[1].items = [instances[2]];
-        this.replaceItems(items);
-        this.replaceAreas(areas);
+        if (this.areas.length === 0) {
+            const xf: Transfer = await $axios.$get('http://pantr.io/vue/areas');
+
+            const areas = xf.areas.map(areaxf => Area.hydrate(areaxf));
+            const items = xf.items.map(itemxf => Item.hydrate(itemxf));
+            xf.instances.forEach(instxf => {
+                const area = areas.find(a => a.id === instxf.storage_area_id);
+                const item = items.find(i => i.id === instxf.item_id);
+
+                if (area == null || item == null) {
+                    throw `Bad index in instanc #${instxf.id}`;
+                }
+
+                ItemInstance.hydrate(instxf, area, item);
+            });
+
+            this.replaceAreas(areas);
+            this.replaceItems(items);
+        }
     }
 }

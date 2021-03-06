@@ -16,17 +16,17 @@ export default class AreaModule extends VuexModule {
     items: Item[] = [];
 
     @Mutation
-    replaceAreas(areas:Area[]) {
+    _replaceAreas(areas:Area[]) {
         this.areas = areas;
     }
 
     @Mutation
-    replaceItems(items:Item[]) {
+    _replaceItems(items:Item[]) {
         this.items = items;
     }
 
     @Mutation
-    addInstanceMutation(payload: {item: Item, area: Area}) {
+    _addInstance(payload: {item: Item, area: Area}) {
         new ItemInstance(420, 69, payload.area, payload.item);
     }
 
@@ -48,13 +48,13 @@ export default class AreaModule extends VuexModule {
                 ItemInstance.hydrate(instxf, area, item);
             });
 
-            this.replaceAreas(areas);
-            this.replaceItems(items);
+            this._replaceAreas(areas);
+            this._replaceItems(items);
         }
     }
 
     @Action
     async addInstance(payload: {item: Item, area: Area}) {
-        this.addInstanceMutation(payload);
+        this._addInstance(payload);
     }
 }

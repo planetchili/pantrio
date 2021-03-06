@@ -27,8 +27,18 @@ export default class AreaModule extends VuexModule {
     }
 
     @Mutation
+    _addInstance(payload: {item: Item, area: Area, quantity: number}) {
+        new ItemInstance(420, payload.quantity, payload.area, payload.item);
+    }
+
+    @Mutation
     _setInitialized() {
         this.isInitialized = true;
+    }
+
+    @Mutation
+    _setItemName(payload: {item: Item, name: string}) {
+        payload.item.name = payload.name;
     }
 
     @Action
@@ -54,6 +64,11 @@ export default class AreaModule extends VuexModule {
 
             this._setInitialized();
         }
+    }
+
+    @Action
+    async addInstance(payload: {item: Item, area: Area, quantity: number}) {
+        this._addInstance(payload);
     }
 }
 

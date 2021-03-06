@@ -1,6 +1,8 @@
-import {Module, Mutation, Action, VuexModule} from 'vuex-module-decorators'
+import {Module, Mutation, Action, VuexModule, config} from 'vuex-module-decorators'
 import {$axios} from "../plugins/nuxt-axios-exporter";
 import {Area, AreaTransfer, Item, ItemTransfer, ItemInstance, ItemInstanceTransfer} from "../../core/Entity";
+
+config.rawError = true;
 
 interface Transfer {
     areas: AreaTransfer[];
@@ -21,6 +23,11 @@ export default class AreaModule extends VuexModule {
     @Mutation
     replaceItems(items:Item[]) {
         this.items = items;
+    }
+
+    @Mutation
+    addInstanceMutation(payload: {item: Item, area: Area}) {
+        new ItemInstance(420, 69, payload.area, payload.item);
     }
 
     @Action
@@ -44,5 +51,10 @@ export default class AreaModule extends VuexModule {
             this.replaceAreas(areas);
             this.replaceItems(items);
         }
+    }
+
+    @Action
+    async addInstance(payload: {item: Item, area: Area}) {
+        this.addInstanceMutation(payload);
     }
 }

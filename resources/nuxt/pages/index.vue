@@ -56,15 +56,15 @@ export default class IndexClass extends Vue {
         await this.areaModule.initialize();
     }
 
-    foobar() {
-        // if (this.areaModule.areas[1].items.length > 3) {
-        //     this.areaModule.items[0].name = 'turdquoise';
-        //     return;
-        // }
-        // // this.areaModule!.areas[0].items.splice(0, 1, {}); // replacing an item
-        // const inst = {quantity: 420, item: this.areaModule.items[0], area: this.areaModule.areas[1]};
-        // this.areaModule.areas[1].items.push(inst);
-        // this.areaModule.items[0].areas.push(inst);
+    async foobar() {
+        if (this.areaModule.areas[1].instances.length > 3) {
+            this.areaModule.items[0].name = 'turdquoise';
+            return;
+        }
+        await this.areaModule.addInstance({
+            item: this.areaModule.items[0],
+            area: this.areaModule.areas[1],
+        });
     }
 
     get areas() {

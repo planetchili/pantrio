@@ -11,7 +11,12 @@
                             <v-card-text>
                                 <v-row no-gutters align="center">
                                     <v-col :cols="9"><h3>{{inst.item.name}}</h3></v-col>
-                                    <v-col :cols="3"><v-text-field label="QTY" :value="inst.quantity" dense hide-details outlined></v-text-field></v-col>
+                                    <v-col :cols="3">
+                                        <v-text-field label="QTY" :value="inst.quantity"
+                                                      @input="areaModule._setInstanceQuantity({quantity: parseInt($event), instance: inst})"
+                                                      dense hide-details outlined>
+                                        </v-text-field>
+                                    </v-col>
                                 </v-row>
                             </v-card-text>
                         </v-card>
@@ -60,6 +65,14 @@
                                 <v-row no-gutters align="center">
                                     <v-col :cols="9"><h3>{{inst.area.name}}</h3></v-col>
                                     <v-col :cols="3"><v-text-field label="QTY" :value="inst.quantity" dense hide-details outlined></v-text-field></v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                        <v-card>
+                            <v-card-text>
+                                <v-row no-gutters align="center">
+                                    <v-col :cols="9"><h2>TOTAL</h2></v-col>
+                                    <v-col :cols="3"><h3 class="green--text">{{item.instances.reduce((c, inst) => c + inst.quantity, 0)}}</h3></v-col>
                                 </v-row>
                             </v-card-text>
                         </v-card>

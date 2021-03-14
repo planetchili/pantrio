@@ -37,6 +37,11 @@ export default class AreaModule extends VuexModule {
     }
 
     @Mutation
+    _setInstanceQuantity(payload: {quantity: number, instance: ItemInstance}) {
+        payload.instance.quantity = payload.quantity;
+    }
+
+    @Mutation
     _addArea(name: string) {
         if (name === '') {
             throw `Empty area name given, aborting _addArea!`;

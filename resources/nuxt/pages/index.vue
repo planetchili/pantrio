@@ -15,6 +15,11 @@
                                 </v-row>
                             </v-card-text>
                         </v-card>
+                        <div class="text-right">
+                            <v-btn class="my-4" color="pink" @click.stop="activateAddItemDialog(area)" fab small>
+                                <v-icon color="white" large>mdi-plus</v-icon>
+                            </v-btn>
+                        </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -61,6 +66,24 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
+
+            <v-dialog v-model="addItemDialog.isActive" width="500">
+                <v-card>
+                    <v-card-title class="headline">
+                        Add Item to {{addItemDialog.area == null ? '???' : addItemDialog.area.name}}
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-text-field v-model="addItemDialog.name" label="Item Name" autofocus></v-text-field>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="secondary lighten-1" @click="resetAddItemDialog" text>Cancel</v-btn>
+                        <v-btn color="primary" @click="addItemDialogExecute" text>Add</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-card-text>
     </v-card>
 </template>
@@ -69,6 +92,7 @@
 import {Vue, Component} from "vue-property-decorator";
 import {getModule} from 'vuex-module-decorators'
 import AreaModule from "../store/areas";
+import {Area} from "~/resources/nuxt/core/Entities";
 
 @Component
 export default class IndexClass extends Vue {
@@ -78,6 +102,12 @@ export default class IndexClass extends Vue {
         name: '',
     };
     addAreaDialog = Object.assign({}, this.addAreaDialogDefaults);
+    readonly addItemDialogDefaults = {
+        isActive: false,
+        area: <Area|null>null,
+        name: '',
+    };
+    addItemDialog = Object.assign({}, this.addItemDialogDefaults);
 
     async created()
     {
@@ -85,7 +115,7 @@ export default class IndexClass extends Vue {
         await this.areaModule.initialize();
     }
 
-    addAreaDialogExecute() {
+    addAreaDialogExecute(): void {
         try {
             this.areaModule._addArea(this.addAreaDialog.name);
         } catch(e) {
@@ -96,6 +126,24 @@ export default class IndexClass extends Vue {
 
     resetAddAreaDialog(): void {
         this.addAreaDialog = Object.assign({}, this.addAreaDialogDefaults);
+    }
+
+    activateAddItemDialog(area: Area): void {
+        this.addItemDialog.area = area;
+        this.addItemDialog.isActive = true;
+    }
+
+    addItemDialogExecute(): void {
+        try {
+            this.areaModule._addItemToArea({itemName: this.addItemDialog.name, targetArea: this.addItemDialog.area!});
+        } catch(e) {
+            console.log(e);
+        }
+        this.resetAddItemDialog();
+    }
+
+    resetAddItemDialog(): void {
+        Object.assign(this.addItemDialog, this.addItemDialogDefaults);
     }
 
     get areas() {

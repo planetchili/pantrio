@@ -47,6 +47,19 @@ export default class AreaModule extends VuexModule {
         this.areas.push(new Area(69420, name));
     }
 
+    @Mutation
+    _addItemToArea(payload: {itemName: string, targetArea: Area}) {
+        if (payload.itemName === '') {
+            throw `Empty item name given, aborting _addItemToArea!`;
+        }
+        let item = this.items.find(i => i.name === payload.itemName);
+        if (item == null) {
+            item = new Item(42069, payload.itemName);
+            this.items.push(item);
+        }
+        new ItemInstance(1337, 1, payload.targetArea, item);
+    }
+
     @Action
     async initialize() {
         if (!this.isInitialized) {

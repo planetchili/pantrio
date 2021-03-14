@@ -19,8 +19,6 @@
                 </v-expansion-panel>
             </v-expansion-panels>
 
-            <v-btn class="my-4" @click="foobar()">FARKNARDS</v-btn>
-
             <v-expansion-panels>
                 <v-expansion-panel v-for="(item,i) in items" :key="i">
                     <v-expansion-panel-header>
@@ -55,22 +53,6 @@ export default class IndexClass extends Vue {
     {
         this.areaModule = getModule(AreaModule, this.$store);
         await this.areaModule.initialize();
-    }
-
-    async foobar() {
-        const tgtArea = this.areaModule.areas[1];
-        if (tgtArea.instances.length > 3) {
-            this.areaModule._setItemName({
-                item: this.areaModule.items[0],
-                name: 'turdquoise'
-            });
-            return;
-        }
-        await this.areaModule.addInstance({
-            item: this.areaModule.items[0],
-            area: tgtArea,
-            quantity: 69,
-        });
     }
 
     get areas() {

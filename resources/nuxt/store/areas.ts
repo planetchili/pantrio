@@ -36,6 +36,17 @@ export default class AreaModule extends VuexModule {
         payload.item.name = payload.name;
     }
 
+    @Mutation
+    _addArea(name: string) {
+        if (name === '') {
+            throw `Empty area name given, aborting _addArea!`;
+        }
+        if (this.areas.find(a => a.name === name) != null) {
+            throw `Area named [${name}] already exists, aborting _addArea!`;
+        }
+        this.areas.push(new Area(69420, name));
+    }
+
     @Action
     async initialize() {
         if (!this.isInitialized) {

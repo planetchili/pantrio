@@ -19,6 +19,31 @@
                 </v-expansion-panel>
             </v-expansion-panels>
 
+            <div class="text-center my-4">
+                <v-dialog v-model="addAreaDialog.isActive" width="500">
+                    <template v-slot:activator="{on, attrs}">
+                        <v-btn color="pink" v-bind="attrs" v-on="on" fab>
+                            <v-icon color="white" x-large>mdi-plus</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title class="headline">
+                            New Storage Area
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-text-field v-model="addAreaDialog.name" label="Area Name" autofocus></v-text-field>
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="secondary lighten-1" @click="resetAddAreaDialog" text>Cancel</v-btn>
+                            <v-btn color="primary" @click="addAreaDialogExecute" text>Add</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </div>
+
             <v-expansion-panels>
                 <v-expansion-panel v-for="(item,i) in items" :key="i">
                     <v-expansion-panel-header>
@@ -48,11 +73,29 @@ import AreaModule from "../store/areas";
 @Component
 export default class IndexClass extends Vue {
     areaModule: AreaModule = null!;
+    readonly addAreaDialogDefaults = {
+        isActive: false,
+        name: '',
+    };
+    addAreaDialog = Object.assign({}, this.addAreaDialogDefaults);
 
     async created()
     {
         this.areaModule = getModule(AreaModule, this.$store);
         await this.areaModule.initialize();
+    }
+
+    addAreaDialogExecute() {
+        try {
+            this.areaModule._addArea(this.addAreaDialog.name);
+        } catch(e) {
+            console.error(e);
+        }
+        this.resetAddAreaDialog();
+    }
+
+    resetAddAreaDialog(): void {
+        this.addAreaDialog = Object.assign({}, this.addAreaDialogDefaults);
     }
 
     get areas() {

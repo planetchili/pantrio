@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a16c3c541bd99241cab1c21ce8e83ac",
+    "content-hash": "03968669bc3d93a6bc5fb40d9eb89f18",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -458,6 +458,58 @@
                 }
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ab3f5364d01f2c2c16113442fb987d26e4004913",
+                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.13.0"
+            },
+            "time": "2020-12-18T16:50:48+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -1379,6 +1431,109 @@
                 }
             ],
             "time": "2021-01-18T20:58:21+00:00"
+        },
+        {
+            "name": "mbezhanov/faker-provider-collection",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mbezhanov/faker-provider-collection.git",
+                "reference": "ae3a9ba9421c3a593836689f08da1443b4065bc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mbezhanov/faker-provider-collection/zipball/ae3a9ba9421c3a593836689f08da1443b4065bc0",
+                "reference": "ae3a9ba9421c3a593836689f08da1443b4065bc0",
+                "shasum": ""
+            },
+            "require": {
+                "fakerphp/faker": "^1.13",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "php-mock/php-mock": "^2.3",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bezhanov\\Faker\\": "src/Faker"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marin Bezhanov",
+                    "email": "marin.bezhanov@gmail.com",
+                    "homepage": "http://marinbezhanov.com"
+                }
+            ],
+            "description": "A collection of custom providers for the Faker library",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/mbezhanov/faker-provider-collection/issues",
+                "source": "https://github.com/mbezhanov/faker-provider-collection/tree/2.0.1"
+            },
+            "time": "2021-03-12T06:57:05+00:00"
+        },
+        {
+            "name": "mbezhanov/laravel-faker-provider-collection",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mbezhanov/laravel-faker-provider-collection.git",
+                "reference": "67ca5b93dfaec37671d1cb5eaffa05be363300d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mbezhanov/laravel-faker-provider-collection/zipball/67ca5b93dfaec37671d1cb5eaffa05be363300d8",
+                "reference": "67ca5b93dfaec37671d1cb5eaffa05be363300d8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1|^6.0|^7.0|^8.0",
+                "mbezhanov/faker-provider-collection": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bezhanov\\Faker\\Laravel\\FakerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bezhanov\\Faker\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marin Bezhanov",
+                    "email": "marin.bezhanov@gmail.com"
+                }
+            ],
+            "description": "A collection of custom Faker providers for your Laravel applications",
+            "keywords": [
+                "faker",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/mbezhanov/laravel-faker-provider-collection/issues",
+                "source": "https://github.com/mbezhanov/laravel-faker-provider-collection/tree/2.0.0"
+            },
+            "time": "2021-03-12T06:47:32+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5128,58 +5283,6 @@
                 "source": "https://github.com/facade/ignition-contracts/tree/1.0.2"
             },
             "time": "2020-10-16T08:27:54+00:00"
-        },
-        {
-            "name": "fakerphp/faker",
-            "version": "v1.13.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ab3f5364d01f2c2c16113442fb987d26e4004913",
-                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0"
-            },
-            "conflict": {
-                "fzaninotto/faker": "*"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "ext-intl": "*",
-                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.4.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Faker\\": "src/Faker/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "François Zaninotto"
-                }
-            ],
-            "description": "Faker is a PHP library that generates fake data for you.",
-            "keywords": [
-                "data",
-                "faker",
-                "fixtures"
-            ],
-            "support": {
-                "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.13.0"
-            },
-            "time": "2020-12-18T16:50:48+00:00"
         },
         {
             "name": "filp/whoops",

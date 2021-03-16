@@ -30,6 +30,7 @@ export default {
 
     axios: {
         'baseURL': 'http://pantr.io/vue/',
+        'progress': false,
     },
 
     build: {

@@ -42,14 +42,8 @@ export default class AreaModule extends VuexModule {
     }
 
     @Mutation
-    _addArea(name: string) {
-        if (name === '') {
-            throw `Empty area name given, aborting _addArea!`;
-        }
-        if (this.areas.find(a => a.name === name) != null) {
-            throw `Area named [${name}] already exists, aborting _addArea!`;
-        }
-        this.areas.push(new Area(69420, name));
+    _addArea(area: Area) {
+        this.areas.push(area);
     }
 
     @Mutation
@@ -88,6 +82,20 @@ export default class AreaModule extends VuexModule {
 
             this._setInitialized();
         }
+    }
+
+    @Action
+    async addArea(name: string) {
+        if (name === '') {
+            throw `Empty area name given, aborting _addArea!`;
+        }
+        if (this.areas.find(a => a.name === name) != null) {
+            throw `Area named [${name}] already exists, aborting addArea!`;
+        }
+        const data = await $axios.$post('areas', {area_name: name});
+        const area = Area.hydrate(data.area as AreaTransfer)
+        this._addArea(area);
+        return area;
     }
 }
 

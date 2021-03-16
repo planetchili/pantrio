@@ -21,7 +21,7 @@
                             </v-card-text>
                         </v-card>
                         <div class="text-right">
-                            <v-btn class="my-4" color="pink" @click.stop="activateAddItemDialog(area)" fab small>
+                            <v-btn class="my-4" color="blue" @click.stop="activateAddItemDialog(area)" fab small>
                                 <v-icon color="white" large>mdi-plus</v-icon>
                             </v-btn>
                         </div>
@@ -128,9 +128,9 @@ export default class IndexClass extends Vue {
         await this.areaModule.initialize();
     }
 
-    addAreaDialogExecute(): void {
+    async addAreaDialogExecute() {
         try {
-            this.areaModule._addArea(this.addAreaDialog.name);
+            await this.areaModule.addArea(this.addAreaDialog.name);
         } catch(e) {
             console.error(e);
         }

@@ -18,5 +18,12 @@ class PantrioController extends Controller
         ];
     }
 
-
+    public function addArea(Request $request)
+    {
+        $this->validate($request, [
+            'area_name' => 'unique:storage_areas,name',
+        ]);
+        $area = StorageArea::create(['name' => $request->area_name]);
+        return compact('area');
+    }
 }

@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('initial-state', 'PantrioController@retrieveInitialState');
+Route::post('areas', 'PantrioController@addArea');

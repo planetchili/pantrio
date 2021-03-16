@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('areas', 'StorageAreaController@retrieve');
+Route::get('initial-state', 'PantrioController@retrieveInitialState');

@@ -7,9 +7,9 @@ use App\Models\ItemInstance;
 use App\Models\StorageArea;
 use Illuminate\Http\Request;
 
-class StorageAreaController extends Controller
+class PantrioController extends Controller
 {
-    public function retrieve()
+    public function retrieveInitialState()
     {
         return [
             'areas' => StorageArea::all(),
@@ -17,4 +17,6 @@ class StorageAreaController extends Controller
             'instances' => ItemInstance::all(),
         ];
     }
+
+
 }

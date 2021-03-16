@@ -68,7 +68,7 @@ export default class AreaModule extends VuexModule {
     @Action
     async initialize() {
         if (!this.isInitialized) {
-            const data: ApiData = await $axios.$get('http://pantr.io/vue/areas');
+            const data: ApiData = await $axios.$get('initial-state');
 
             const areas = data.areas.map(areaxf => Area.hydrate(areaxf));
             const items = data.items.map(itemxf => Item.hydrate(itemxf));

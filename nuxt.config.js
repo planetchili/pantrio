@@ -28,6 +28,10 @@ export default {
         '@nuxtjs/axios',
     ],
 
+    axios: {
+        'baseURL': 'http://pantr.io/vue/',
+    },
+
     build: {
         publicPath: process.env.NODE_ENV === 'production' ? 'assets/' : null,
         extractCSS: true,

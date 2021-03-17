@@ -75,9 +75,7 @@ export default class PantrioModule extends VuexModule {
 
             this._replaceAreas(data.areas.map(areaxf => Area.hydrate(areaxf)));
             this._replaceItems(data.items.map(itemxf => Item.hydrate(itemxf)));
-            data.instances.forEach(instxf => {
-                this._transferInstance({xf: instxf});
-            });
+            data.instances.forEach(xf => this._transferInstance({xf}));
 
             this._setInitialized();
         }

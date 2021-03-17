@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('initial-state', 'PantrioController@retrieveInitialState');
 Route::post('areas', 'PantrioController@addArea');
+Route::post('items', 'PantrioController@addItem');
+Route::post('instances', 'PantrioController@addInstance');

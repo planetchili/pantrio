@@ -47,16 +47,18 @@ export default class PantrioModule extends VuexModule {
     }
 
     @Mutation
-    _addItemToArea(payload: {itemName: string, targetArea: Area}) {
-        if (payload.itemName === '') {
-            throw `Empty item name given, aborting _addItemToArea!`;
+    _addItem(item: Item) {
+        this.items.push(item);
+    }
+
+    @Mutation
+    _transferInstance(xf: ItemInstanceTransfer) {
+        const area = this.areas.find(a => a.id === xf.storage_area_id);
+        const item = this.items.find(i => i.id === xf.item_id);
+        if (area == null || item == null) {
+            throw `Bad index in transfer, item instance #${xf.id}`;
         }
-        let item = this.items.find(i => i.name === payload.itemName);
-        if (item == null) {
-            item = new Item(42069, payload.itemName);
-            this.items.push(item);
-        }
-        new ItemInstance(1337, 1, payload.targetArea, item);
+        ItemInstance.hydrate(xf, area, item);
     }
 
     @Action
@@ -87,7 +89,7 @@ export default class PantrioModule extends VuexModule {
     @Action
     async addArea(name: string) {
         if (name === '') {
-            throw `Empty area name given, aborting _addArea!`;
+            throw `Empty area name given, aborting addArea!`;
         }
         if (this.areas.find(a => a.name === name) != null) {
             throw `Area named [${name}] already exists, aborting addArea!`;
@@ -96,6 +98,40 @@ export default class PantrioModule extends VuexModule {
         const area = Area.hydrate(data.area as AreaTransfer)
         this._addArea(area);
         return area;
+    }
+
+    @Action
+    async addItem(name: string) {
+        if (name === '') {
+            throw `Empty item name given, aborting addItem!`;
+        }
+        if (this.items.find(i => i.name === name) != null) {
+            throw `Item named [${name}] already exists, aborting addItem!`;
+        }
+        const data = await $axios.$post('items', {item_name: name});
+        const item = Item.hydrate(data.item as ItemTransfer)
+        this._addItem(item);
+        return item;
+    }
+
+    @Action
+    async addItemInstanceToArea(payload: {itemName: string, area: Area, quantity: number}) {
+        if (payload.itemName === '') {
+            throw 'Tried to add instance of item with empty name to area';
+        }
+        if (payload.area.instances.find(i => i.item.name === payload.itemName) != null) {
+            throw `Item named [${payload.itemName}] already exists in area [${payload.area.name}], aborting addItemToArea!`;
+        }
+        let item = this.items.find(i => i.name === payload.itemName);
+        if (item == null) {
+            item = await this.addItem(payload.itemName);
+        }
+        const data = await $axios.$post('instances', {
+            item_id: item.id,
+            storage_area_id: payload.area.id,
+            quantity: payload.quantity,
+        });
+        this._transferInstance(data.instance as ItemInstanceTransfer);
     }
 }
 

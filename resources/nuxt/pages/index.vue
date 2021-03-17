@@ -146,11 +146,15 @@ export default class IndexClass extends Vue {
         this.addItemDialog.isActive = true;
     }
 
-    addItemDialogExecute(): void {
+    async addItemDialogExecute() {
         try {
-            this.pantrioModule._addItemToArea({itemName: this.addItemDialog.name, targetArea: this.addItemDialog.area!});
+            await this.pantrioModule.addItemInstanceToArea({
+                itemName: this.addItemDialog.name,
+                area: this.addItemDialog.area!,
+                quantity: 1
+            });
         } catch(e) {
-            console.log(e);
+            console.error(e);
         }
         this.resetAddItemDialog();
     }

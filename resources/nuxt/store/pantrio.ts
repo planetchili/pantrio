@@ -52,13 +52,20 @@ export default class PantrioModule extends VuexModule {
     }
 
     @Mutation
-    _transferInstance(xf: ItemInstanceTransfer) {
-        const area = this.areas.find(a => a.id === xf.storage_area_id);
-        const item = this.items.find(i => i.id === xf.item_id);
-        if (area == null || item == null) {
-            throw `Bad index in transfer, item instance #${xf.id}`;
+    _transferInstance(payload: {xf: ItemInstanceTransfer, hint?: {area: Area, item: Item}}) {
+        let area: Area|undefined;
+        let item: Item|undefined;
+        if (payload.hint == null) {
+            area = this.areas.find(a => a.id === payload.xf.storage_area_id);
+            item = this.items.find(i => i.id === payload.xf.item_id);
+            if (area == null || item == null) {
+                throw `Bad index in transfer, item instance #${payload.xf.id}`;
+            }
+        } else {
+            area = payload.hint.area;
+            item = payload.hint.item;
         }
-        ItemInstance.hydrate(xf, area, item);
+        ItemInstance.hydrate(payload.xf, area, item);
     }
 
     @Action
@@ -69,7 +76,7 @@ export default class PantrioModule extends VuexModule {
             this._replaceAreas(data.areas.map(areaxf => Area.hydrate(areaxf)));
             this._replaceItems(data.items.map(itemxf => Item.hydrate(itemxf)));
             data.instances.forEach(instxf => {
-                this._transferInstance(instxf);
+                this._transferInstance({xf: instxf});
             });
 
             this._setInitialized();
@@ -121,7 +128,7 @@ export default class PantrioModule extends VuexModule {
             storage_area_id: payload.area.id,
             quantity: payload.quantity,
         });
-        this._transferInstance(data.instance as ItemInstanceTransfer);
+        this._transferInstance({xf: data.instance, hint: {item: item, area: payload.area}});
     }
 }
 

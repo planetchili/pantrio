@@ -66,21 +66,11 @@ export default class PantrioModule extends VuexModule {
         if (!this.isInitialized) {
             const data: ApiData = await $axios.$get('initial-state');
 
-            const areas = data.areas.map(areaxf => Area.hydrate(areaxf));
-            const items = data.items.map(itemxf => Item.hydrate(itemxf));
+            this._replaceAreas(data.areas.map(areaxf => Area.hydrate(areaxf)));
+            this._replaceItems(data.items.map(itemxf => Item.hydrate(itemxf)));
             data.instances.forEach(instxf => {
-                const area = areas.find(a => a.id === instxf.storage_area_id);
-                const item = items.find(i => i.id === instxf.item_id);
-
-                if (area == null || item == null) {
-                    throw `Bad index in item instance #${instxf.id}`;
-                }
-
-                ItemInstance.hydrate(instxf, area, item);
+                this._transferInstance(instxf);
             });
-
-            this._replaceAreas(areas);
-            this._replaceItems(items);
 
             this._setInitialized();
         }

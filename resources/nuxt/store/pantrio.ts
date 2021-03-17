@@ -10,8 +10,8 @@ interface ApiData {
     instances: ItemInstanceTransfer[];
 }
 
-@Module({namespaced: true, name: 'areas'})
-export default class AreaModule extends VuexModule {
+@Module({namespaced: true, name: 'pantrio', stateFactory: true})
+export default class PantrioModule extends VuexModule {
     isInitialized: boolean = false;
     areas: Area[] = [];
     items: Item[] = [];

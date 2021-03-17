@@ -13,7 +13,7 @@
                                     <v-col :cols="9"><h3>{{inst.item.name}}</h3></v-col>
                                     <v-col :cols="3">
                                         <v-text-field label="QTY" :value="inst.quantity"
-                                                      @input="areaModule._setInstanceQuantity({quantity: parseInt($event), instance: inst})"
+                                                      @input="pantrioModule._setInstanceQuantity({quantity: parseInt($event), instance: inst})"
                                                       dense hide-details outlined>
                                         </v-text-field>
                                     </v-col>
@@ -104,12 +104,12 @@
 <script lang="ts">
 import {Vue, Component} from "vue-property-decorator";
 import {getModule} from 'vuex-module-decorators'
-import AreaModule from "../store/areas";
+import PantrioModule from "../store/pantrio";
 import {Area} from "~/resources/nuxt/core/Entities";
 
 @Component
 export default class IndexClass extends Vue {
-    areaModule: AreaModule = null!;
+    pantrioModule: PantrioModule = null!;
     readonly addAreaDialogDefaults = {
         isActive: false,
         name: '',
@@ -124,13 +124,13 @@ export default class IndexClass extends Vue {
 
     async created()
     {
-        this.areaModule = getModule(AreaModule, this.$store);
-        await this.areaModule.initialize();
+        this.pantrioModule = getModule(PantrioModule, this.$store);
+        await this.pantrioModule.initialize();
     }
 
     async addAreaDialogExecute() {
         try {
-            await this.areaModule.addArea(this.addAreaDialog.name);
+            await this.pantrioModule.addArea(this.addAreaDialog.name);
         } catch(e) {
             console.error(e);
         }
@@ -148,7 +148,7 @@ export default class IndexClass extends Vue {
 
     addItemDialogExecute(): void {
         try {
-            this.areaModule._addItemToArea({itemName: this.addItemDialog.name, targetArea: this.addItemDialog.area!});
+            this.pantrioModule._addItemToArea({itemName: this.addItemDialog.name, targetArea: this.addItemDialog.area!});
         } catch(e) {
             console.log(e);
         }
@@ -160,11 +160,11 @@ export default class IndexClass extends Vue {
     }
 
     get areas() {
-        return this.areaModule.areas;
+        return this.pantrioModule.areas;
     }
 
     get items() {
-        return this.areaModule.items;
+        return this.pantrioModule.items;
     }
 }
 </script>

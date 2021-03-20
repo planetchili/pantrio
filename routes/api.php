@@ -18,3 +18,4 @@ Route::get('initial-state', 'PantrioController@retrieveInitialState');
 Route::post('areas', 'PantrioController@addArea');
 Route::post('items', 'PantrioController@addItem');
 Route::post('instances', 'PantrioController@addInstance');
+Route::patch('instances/{instance}/quantity', 'PantrioController@setQuantity');

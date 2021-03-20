@@ -128,6 +128,12 @@ export default class PantrioModule extends VuexModule {
         });
         this._transferInstance({xf: data.instance, hint: {item: item, area: payload.area}});
     }
+
+    @Action
+    async setInstanceQuantity(payload: {instance: ItemInstance, quantity: number}) {
+        await $axios.$patch(`instances/${payload.instance.id}/quantity`, {quantity: payload.quantity});
+        this._setInstanceQuantity(payload);
+    }
 }
 
 

@@ -48,4 +48,12 @@ class PantrioController extends Controller
         $instance = ItemInstance::create($request->only(['item_id', 'storage_area_id', 'quantity']));
         return compact('instance');
     }
+
+    public function setQuantity(Request $request, ItemInstance $instance)
+    {
+        $this->validate($request, [
+            'quantity' => 'required|integer|min:0',
+        ]);
+        $instance->update($request->only('quantity'));
+    }
 }

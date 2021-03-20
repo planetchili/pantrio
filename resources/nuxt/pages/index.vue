@@ -13,7 +13,7 @@
                                     <v-col :cols="9"><h3>{{inst.item.name}}</h3></v-col>
                                     <v-col :cols="3">
                                         <v-text-field label="QTY" :value="inst.quantity"
-                                                      @input="pantrioModule._setInstanceQuantity({quantity: parseInt($event), instance: inst})"
+                                                      @input="quantityChanged(inst, $event)"
                                                       dense hide-details outlined>
                                         </v-text-field>
                                     </v-col>
@@ -64,7 +64,12 @@
                             <v-card-text>
                                 <v-row no-gutters align="center">
                                     <v-col :cols="9"><h3>{{inst.area.name}}</h3></v-col>
-                                    <v-col :cols="3"><v-text-field label="QTY" :value="inst.quantity" dense hide-details outlined></v-text-field></v-col>
+                                    <v-col :cols="3">
+                                        <v-text-field label="QTY" :value="inst.quantity"
+                                                      @input="quantityChanged(inst, $event)"
+                                                      dense hide-details outlined>
+                                        </v-text-field>
+                                    </v-col>
                                 </v-row>
                             </v-card-text>
                         </v-card>
@@ -105,7 +110,8 @@
 import {Vue, Component} from "vue-property-decorator";
 import {getModule} from 'vuex-module-decorators'
 import PantrioModule from "../store/pantrio";
-import {Area} from "~/resources/nuxt/core/Entities";
+import {Area} from "../core/Entities";
+import {Killswitch, sleep} from "../core/Sleep";
 
 @Component
 export default class IndexClass extends Vue {
@@ -122,10 +128,20 @@ export default class IndexClass extends Vue {
     };
     addItemDialog = Object.assign({}, this.addItemDialogDefaults);
 
-    async created()
-    {
+    async created() {
         this.pantrioModule = getModule(PantrioModule, this.$store);
         await this.pantrioModule.initialize();
+    }
+
+    quantityChangeKillswitch = new Killswitch();
+    async quantityChanged(instance, qty) {
+        this.quantityChangeKillswitch.kill();
+        const quantity = parseInt(qty);
+        if (isNaN(quantity)) {
+            return;
+        }
+        await sleep(800, this.quantityChangeKillswitch);
+        await this.pantrioModule.setInstanceQuantity({instance, quantity});
     }
 
     async addAreaDialogExecute() {
